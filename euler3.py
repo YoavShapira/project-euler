@@ -1,28 +1,47 @@
 """
-Project Euler script #2.
+Project Euler problem #3.
 """
+import math
 
-fibs = {}
+def primes(n):
+    """ This is from http://code.activestate.com/recipes/366178/ """
+    if n == 2: return [2]
+    elif n < 2: return []
 
-def fib(n):
-	if n in fibs:
-		return fibs[n]
-			
-	if (n < 2):
-		fibs[n] = 1
-	else:
-		fibs[n] = fib(n-1) + fib(n-2)
+    s = range(3, n + 1, 2)
+    mroot = n ** 0.5
+    half = (n + 1) / 2 - 1
+    i = 0
+    m = 3
+    while m <= mroot:
+        if s[i]:
+            j = (m * m - 3) / 2
+            s[j] = 0
+            while j < half:
+                s[j] = 0
+                j += m
+        i = i + 1
+        m = 2 * i + 3
 
-	return fibs[n]
+    return [2]+[x for x in s if x]
 
 def main():
-	sum = 0
-	for i in range(1, 34):
-		n = fib(i)
-		if (n % 2 == 0):
-			sum += n
+	target = 600851475143
 
-	print sum
+	primes_to_check = primes(int(math.ceil(math.sqrt(target))))
+	print "Got %d primes to check" % len(primes_to_check)
+
+	prime_factors = []
+	for number in primes_to_check:
+		s = 1
+		while s == 1:
+			if target % number == 0:
+				prime_factors.append(number)
+				target /= number
+			else:
+				s = 0
+
+	print "All done, prime_factors: %s" % prime_factors
 
 if __name__ == "__main__":
-    main()
+	main()
