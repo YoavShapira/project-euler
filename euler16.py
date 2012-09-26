@@ -1,7 +1,6 @@
 """
-Project Euler problem #15.
+Project Euler problem #16.
 """
-import math
 
 def main():
 	number = 2 ** 1000
