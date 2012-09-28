@@ -30,12 +30,8 @@ def count_letters(number):
 
 def main():
 	count = 0 
-	for i in range(1,1000):
-		foo = count_letters(i)
-		if foo:
-			count += foo
-		else:
-			print "Strange, no count for %d" % i
+	for i in range(1, 1000):
+		count = count + count_letters(i)
 	print count + 11
 
 if __name__ == "__main__":
